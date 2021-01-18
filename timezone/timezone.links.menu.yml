@@ -1,0 +1,12 @@
+timezone.timezone_settings:
+  title: 'Timezone Settings'
+  parent: timezone.group.admin
+  description: 'Define site timezone settings.'
+  route_name: timezone.timezone_settings_form
+
+timezone.group.admin:
+  title: 'Timezone'
+  route_name: timezone.admin_config_timezone
+  parent: system.admin_config
+  description: 'Timezone Configuration'
+  weight: 0

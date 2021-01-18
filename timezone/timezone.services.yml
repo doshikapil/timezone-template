@@ -1,0 +1,4 @@
+services:
+  timezone.location:
+    class: Drupal\timezone\Service\TimezoneLocation
+    arguments: ['@config.factory', '@logger.factory', '@key.repository']
