@@ -30,14 +30,14 @@ class TimezoneSettingsForm extends ConfigFormBase {
     $form['timezone_settings']['country'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Enter Your Country'),
-      '#description' => $this->t('Country name goes here'),
+      '#description' => $this->t('Enter your country to show timezone'),
       '#default_value' => $config->get('country') ? $config->get('country') : '',
     ];
 
     $form['timezone_settings']['city'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Enter Your City'),
-      '#description' => $this->t('City name goes here'),
+      '#description' => $this->t('Enter your city to show timezone'),
       '#default_value' => $config->get('city') ? $config->get('city') : '',
     ];
     $requiredOptions = [
@@ -54,8 +54,8 @@ class TimezoneSettingsForm extends ConfigFormBase {
 
     $form['timezone_settings']['timezone'] = [
       '#type' => 'select',
-      '#title' => $this->t('Enter Your Country'),
-      '#description' => $this->t('Country name goes here'),
+      '#title' => $this->t('Select Your Country'),
+      '#description' => $this->t('Select your country to show timezone'),
       '#default_value' => $config->get('timezone') ? $config->get('timezone') : '',
       '#options' => $requiredOptions,
     ];
