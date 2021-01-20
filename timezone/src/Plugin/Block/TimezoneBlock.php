@@ -2,7 +2,6 @@
 
 namespace Drupal\timezone\Plugin\Block;
 
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\timezone\Service\TimezoneLocation;
@@ -10,7 +9,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a block with a simple text.
+ * Provides a block with a timezone.
  *
  * @Block(
  *   id = "timezone_block",
@@ -18,17 +17,24 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class TimezoneBlock extends BlockBase implements ContainerFactoryPluginInterface {
-
   /**
-   * @var AccountInterface $account
+   * Object for TimezoneLocation Service.
+   *
+   * @var \Drupal\timezone\Service\TimezoneLocation
    */
   protected $timezoneLocation;
 
   /**
+   * Constructor for TimezoneBlock.
+   *
    * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
-   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The plugin implementation definition.
+   * @param \Drupal\timezone\Service\TimezoneLocation $timezone_location
+   *   A timezome location object.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, TimezoneLocation $timezone_location) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -36,12 +42,7 @@ class TimezoneBlock extends BlockBase implements ContainerFactoryPluginInterface
   }
 
   /**
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   * @param array $configuration
-   * @param string $plugin_id
-   * @param mixed $plugin_definition
-   *
-   * @return static
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
@@ -52,16 +53,18 @@ class TimezoneBlock extends BlockBase implements ContainerFactoryPluginInterface
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     $date = $this->timezoneLocation->getDateFromTimezone();
     return [
       '#markup' => $date['time'],
       '#cache' => [
-        'tags' => ['config:timezone.config_settings']
-      ]
+        'tags' => ['config:timezone.config_settings'],
+      ],
     ];
   }
-
 
   /**
    * {@inheritdoc}
@@ -78,4 +81,5 @@ class TimezoneBlock extends BlockBase implements ContainerFactoryPluginInterface
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['my_block_settings'] = $form_state->getValue('my_block_settings');
   }
+
 }

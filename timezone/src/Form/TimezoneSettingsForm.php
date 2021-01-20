@@ -5,7 +5,11 @@ namespace Drupal\timezone\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Configure timezone settings for this module.
+ */
 class TimezoneSettingsForm extends ConfigFormBase {
+
   /**
    * {@inheritdoc}
    */
@@ -23,7 +27,6 @@ class TimezoneSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('timezone.config_settings');
 
@@ -43,12 +46,12 @@ class TimezoneSettingsForm extends ConfigFormBase {
     $requiredOptions = [
       'Select' => 'Select',
       'America/Chicago' => 'America/Chicago',
-      'America/New_York' => 'America/New_York', 
-      'Asia/Kolkata' => 'Asia/Kolkata', 
+      'America/New_York' => 'America/New_York',
+      'Asia/Kolkata' => 'Asia/Kolkata',
       'Asia/Tokyo' => 'Asia/Tokyo',
-      'Asia/Dubai' => 'Asia/Dubai', 
-      'Europe/Amsterdam' => 'Europe/Amsterdam', 
-      'Europe/London' => 'Europe/London', 
+      'Asia/Dubai' => 'Asia/Dubai',
+      'Europe/Amsterdam' => 'Europe/Amsterdam',
+      'Europe/London' => 'Europe/London',
       'Europe/Oslo' => 'Europe/Oslo',
     ];
 
@@ -63,17 +66,16 @@ class TimezoneSettingsForm extends ConfigFormBase {
   }
 
   /**
-    * {@inheritdoc}
-    */
-   public function submitForm(array &$form, FormStateInterface $form_state) {
-     $this->config('timezone.config_settings')
-       ->set('country', $form_state->getValue('country'))
-       ->set('city', $form_state->getValue('city'))
-       ->set('timezone', $form_state->getValue('timezone'))
-       ->save();
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->config('timezone.config_settings')
+      ->set('country', $form_state->getValue('country'))
+      ->set('city', $form_state->getValue('city'))
+      ->set('timezone', $form_state->getValue('timezone'))
+      ->save();
 
-     
-     parent::submitForm($form, $form_state);
-   }
+    parent::submitForm($form, $form_state);
+  }
+
 }
-
